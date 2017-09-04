@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#sudo apt-get update && time sudo apt-get upgrade
+sudo apt-get update && sudo apt-get -y upgrade
 
 COMMANDS=( 'nodejs') # 'node' 'git' )
 
