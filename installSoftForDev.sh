@@ -23,4 +23,4 @@ done
 
 sudo apt-get -y autoremove
 
-#fab setup
+fab setup
