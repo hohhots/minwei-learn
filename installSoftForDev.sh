@@ -2,7 +2,7 @@
 
 sudo apt-get update && sudo apt-get -y upgrade
 
-COMMANDS=( 'nodejs') # 'node' 'git' )
+COMMANDS=( 'nodejs' 'node' 'git' )
 
 COMMANDSPACKAGES=( 'nodejs' 'nodejs-legacy' 'git' )
 
