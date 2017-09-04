@@ -19,4 +19,6 @@ for(( i=0;i<$comNum;i++)); do
     
 done
 
+sudo apt-get -y autoremove
+
 #fab setup
