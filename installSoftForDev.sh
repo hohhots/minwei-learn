@@ -56,12 +56,12 @@ npmPackages=(
 DIR=node_modules
 if [ -d "$DIR" ]; then
     printf '%s\n' "Removing node module directory ($DIR)"
-    rm -rf "$DIR"
+    #rm -rf "$DIR"
 fi
 
 comNum=${#npmPackages[@]}
 for(( i=0;i<$comNum;i++)); do
-    sudo npm install --save-dev ${npmPackages[${i}]}
+    #sudo npm install --save-dev ${npmPackages[${i}]}
     echo "${npmPackages[${i}]} installed!"
     
 done
