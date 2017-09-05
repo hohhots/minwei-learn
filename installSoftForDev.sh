@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#sudo apt-get update
-#sudo apt-get -y upgrade
+sudo apt-get update
+sudo apt-get -y upgrade
 
 COMMANDS=( 'nodejs' 'node' 'npm' )
 COMMANDS=( 'nodejs' 'nodejs-legacy' 'npm' )
@@ -9,24 +9,26 @@ COMMANDS=( 'nodejs' 'nodejs-legacy' 'npm' )
 comNum=${#COMMANDS[@]}
 for(( i=0;i<$comNum;i++)); do
     echo "Checking if command \"${COMMANDS[${i}]}\" exists! It's package name is ${COMMANDSPACKAGES[${i}]}"
-    if [ ! -z `which ${COMMANDS[${i}]}` ]  #if command exist!
+    #if command exist!
+    if [ ! -z `which ${COMMANDS[${i}]}` ] 
     then
         echo "${COMMANDS[${i}]} already installed, and will be REMOVED!!!!"
-        #sudo apt-get remove -y --purge ${COMMANDSPACKAGES[${i}]}
+        sudo apt-get remove -y --purge ${COMMANDSPACKAGES[${i}]}
     fi
     
-    #sudo apt-get install -y ${COMMANDSPACKAGES[${i}]}
+    sudo apt-get install -y ${COMMANDSPACKAGES[${i}]}
     echo "${COMMANDS[${i}]} installed!"
     
 done
 
 # npm install process
-#sudo npm install --global gulp-cli
+sudo npm install --global gulp-cli
 
 # install npm plugin packages
 npmPackages=( 
                 'apache-server-configs'
                 'babel-core'
+                'babel-preset-es2015'
                 'browser-sync'
                 'del'
                 'eslint-config-google'
@@ -56,49 +58,18 @@ npmPackages=(
 DIR=node_modules
 if [ -d "$DIR" ]; then
     printf '%s\n' "Removing node module directory ($DIR)"
-    #rm -rf "$DIR"
+    rm -rf "$DIR"
 fi
 
 comNum=${#npmPackages[@]}
 for(( i=0;i<$comNum;i++)); do
-    #sudo npm install --save-dev ${npmPackages[${i}]}
+    sudo npm install --save-dev ${npmPackages[${i}]}
     echo "${npmPackages[${i}]} installed!"
     
 done
 
-# config git
-configures=( 
-            "user.name  brgd"
-            "user.email hohhots@qq.com"
-            "push.default matching"
-            "branch.autosetuprebase always"
-            "core.editor 'emacs -fs'"
-            "color.ui true"
-            "color.status auto"
-            "color.branch auto"
-            "alias.co checkout"
-            "alias.ci commit"
-            "alias.st status"
-            "alias.xfetch 'fetch origin'"
-            "alias.xdiff 'diff origin master'"
-            "alias.xmerge 'merge origin master'"
-            "alias.xpull 'pull origin master'"
-            "alias.xpush 'push origin master'"
-            "alias.br branch"
-            "alias.type 'cat-file -t'"
-            "alias.dump 'cat-file -p'"
-            "alias.hist 'log --pretty=format:%h-%ad-|-%s%d-[%an] --graph --date=short'"
-            )
-
-comNum=${#configures[@]}
-for(( i=0;i<$comNum;i++)); do
-    echo ${configures[${i}]}
-    sudo git config --global ${configures[${i}]}
-done
-echo "git configure completed!"
-
 # os cleaning 
-#sudo apt-get -y autoremove
-#sudo apt-get -y autoclean
+sudo apt-get -y autoremove
+sudo apt-get -y autoclean
 
-#fab setup
+fab setup
