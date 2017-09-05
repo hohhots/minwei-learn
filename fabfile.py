@@ -1,4 +1,4 @@
-#Run initPackages.sh first to install required packages in ubuntu.
+#Run this file from initPackages.sh to install required packages in ubuntu.
 
 from __future__ import with_statement
 from fabric.api import env, local, run, lcd, cd, sudo
@@ -29,8 +29,8 @@ gitAlias = [
            ]
 
 def localGitConfig():
-    for alias in gitAlias:
-        local('git config --global ' + alias)
+	for alias in gitAlias:
+		local('git config --global ' + alias)
 
 def setup(): 
 	localGitConfig()

@@ -1,0 +1,7 @@
+# ignore aws ssh key file
+*.pem
+
+# ignore python compiled files ( fabric config file )
+*.pyc
+
+node_modules
