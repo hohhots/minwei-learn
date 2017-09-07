@@ -21,8 +21,27 @@ for(( i=0;i<$comNum;i++)); do
     
 done
 
+# set user profile to install npm packages globally without sudo on macOS and Linux
+    mkdir "${HOME}/.npm-packages"
+
+    npmrc=${HOME}/.npmrc
+    cat "prefix=${HOME}/.npm-packages" >> "$npmrc"
+
+    bashrc=${HOME}/.bashrc
+    cat 'NPM_PACKAGES="${HOME}/.npm-packages"' >> "$bashrc"
+    cat 'PATH="$NPM_PACKAGES/bin:$PATH"' >> "$bashrc"
+
+    # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+    cat "unset MANPATH" >> "$bashrc"
+    # delete if you already modified MANPATH elsewhere in your config
+    cat 'export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> "$bashrc"
+    
+
+#set environment
+source ~/.bashrc
+
 # npm install process
-sudo npm install --global gulp-cli
+npm install --global gulp-cli
 
 # install npm plugin packages
 npmPackages=( 
@@ -63,7 +82,7 @@ fi
 
 comNum=${#npmPackages[@]}
 for(( i=0;i<$comNum;i++)); do
-    sudo npm install --save-dev ${npmPackages[${i}]}
+    npm install --save-dev ${npmPackages[${i}]}
     echo "${npmPackages[${i}]} installed!"
     
 done
