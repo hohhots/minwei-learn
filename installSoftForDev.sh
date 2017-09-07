@@ -3,8 +3,8 @@
 sudo apt-get update
 sudo apt-get -y upgrade
 
-COMMANDS=( 'nodejs' 'node' 'npm' )
-COMMANDS=( 'nodejs' 'nodejs-legacy' 'npm' )
+COMMANDS=( 'nodejs' 'node' 'npm' 'fab')
+COMMANDS=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
 
 comNum=${#COMMANDS[@]}
 for(( i=0;i<$comNum;i++)); do
@@ -25,6 +25,8 @@ done
     mkdir "${HOME}/.npm-packages"
 
     npmrc=${HOME}/.npmrc
+    mkdir $npmrc
+
     echo "prefix=${HOME}/.npm-packages" >> "$npmrc"
 
     bashrc=${HOME}/.bashrc
@@ -38,7 +40,7 @@ done
     
 
 #set environment
-source ~/.bashrc
+    source ~/.bashrc
 
 # npm install process
 npm install --global gulp-cli
