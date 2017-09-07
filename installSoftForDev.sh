@@ -26,6 +26,7 @@ done
     mkdir $npmpackages
 
     npmrc=${HOME}/.npmrc
+    rm "$npmrc"
     echo "prefix=${HOME}/.npm-packages" >> "$npmrc"
 
     bashrc=${HOME}/.bashrc
@@ -42,54 +43,27 @@ done
     source ~/.bashrc
 
 # npm install process
-npm install --global gulp-cli
+    #npm install --global gulp-cli
 
-# install npm plugin packages
-npmPackages=( 
-                'apache-server-configs'
-                'babel-core'
-                'babel-preset-es2015'
-                'browser-sync'
-                'del'
-                'eslint-config-google'
+# install npm packages 
+    #globally for develop
+    npmPackages=(
                 'gulp'
-                'gulp-autoprefixer'
-                'gulp-babel'
-                'gulp-cache'
-                'gulp-concat'
-                'gulp-cssnano'
-                'gulp-eslint'
-                'gulp-htmlmin'
-                'gulp-if'
-                'gulp-imagemin'
-                'gulp-load-plugins'
-                'gulp-newer'
-                'gulp-sass'
-                'gulp-size'
-                'gulp-sourcemaps'
-                'gulp-uglify'
-                'gulp-useref'
-                'psi'
-                'run-sequence'
-                'sw-precache'
-                'sw-toolbox'
-            )
+    )
 
-DIR=node_modules
-if [ -d "$DIR" ]; then
-    printf '%s\n' "Removing node module directory ($DIR)"
-    rm -rf "$DIR"
-fi
+    comNum=${#npmPackages[@]}
+    for(( i=0;i<$comNum;i++)); do
+        npm install ${npmPackages[${i}]} -g
+        echo "${npmPackages[${i}]} installed!"
 
-comNum=${#npmPackages[@]}
-for(( i=0;i<$comNum;i++)); do
-    npm install --save-dev ${npmPackages[${i}]}
-    echo "${npmPackages[${i}]} installed!"
-    
-done
+    done
+
+    # local for develop
+    npm install
 
 # os cleaning 
-sudo apt-get -y autoremove
-sudo apt-get -y autoclean
+    sudo apt-get -y autoremove
+    sudo apt-get -y autoclean
 
-fab setup
+# call fabric
+    fab setup
