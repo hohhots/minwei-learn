@@ -22,11 +22,13 @@ for(( i=0;i<$comNum;i++)); do
 done
 
 # set user profile to install npm packages globally without sudo on macOS and Linux
-    mkdir "${HOME}/.npm-packages"
+    npmpackages="${HOME}/.npm-packages"
+    rm -rf $npmpackages 
+    mkdir $npmpackages
 
     npmrc=${HOME}/.npmrc
+    rm -rf $npmrc
     mkdir $npmrc
-
     echo "prefix=${HOME}/.npm-packages" >> "$npmrc"
 
     bashrc=${HOME}/.bashrc
