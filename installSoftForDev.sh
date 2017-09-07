@@ -4,7 +4,7 @@ sudo apt-get update
 sudo apt-get -y upgrade
 
 COMMANDS=( 'nodejs' 'node' 'npm' 'fab')
-COMMANDS=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
+COMMANDSPACKAGES=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
 
 comNum=${#COMMANDS[@]}
 for(( i=0;i<$comNum;i++)); do
