@@ -25,16 +25,16 @@ done
     mkdir "${HOME}/.npm-packages"
 
     npmrc=${HOME}/.npmrc
-    cat "prefix=${HOME}/.npm-packages" >> "$npmrc"
+    echo "prefix=${HOME}/.npm-packages" >> "$npmrc"
 
     bashrc=${HOME}/.bashrc
-    cat 'NPM_PACKAGES="${HOME}/.npm-packages"' >> "$bashrc"
-    cat 'PATH="$NPM_PACKAGES/bin:$PATH"' >> "$bashrc"
+    echo 'NPM_PACKAGES="${HOME}/.npm-packages"' >> "$bashrc"
+    echo 'PATH="$NPM_PACKAGES/bin:$PATH"' >> "$bashrc"
 
     # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-    cat "unset MANPATH" >> "$bashrc"
+    echo "unset MANPATH" >> "$bashrc"
     # delete if you already modified MANPATH elsewhere in your config
-    cat 'export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> "$bashrc"
+    echo 'export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"' >> "$bashrc"
     
 
 #set environment
