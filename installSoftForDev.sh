@@ -1,25 +1,27 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get -y upgrade
+# os update
+    sudo apt-get update
+    sudo apt-get -y upgrade
 
-COMMANDS=( 'nodejs' 'node' 'npm' 'fab')
-COMMANDSPACKAGES=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
+# install software
+    COMMANDS=( 'nodejs' 'node' 'npm' 'fab' )
+    COMMANDSPACKAGES=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
 
-comNum=${#COMMANDS[@]}
-for(( i=0;i<$comNum;i++)); do
-    echo "Checking if command \"${COMMANDS[${i}]}\" exists! It's package name is ${COMMANDSPACKAGES[${i}]}"
-    #if command exist!
-    if [ ! -z `which ${COMMANDS[${i}]}` ] 
-    then
-        echo "${COMMANDS[${i}]} already installed, and will be REMOVED!!!!"
-        sudo apt-get remove -y --purge ${COMMANDSPACKAGES[${i}]}
-    fi
-    
-    sudo apt-get install -y ${COMMANDSPACKAGES[${i}]}
-    echo "${COMMANDS[${i}]} installed!"
-    
-done
+    comNum=${#COMMANDS[@]}
+    for(( i=0;i<$comNum;i++)); do
+        echo "Checking if command \"${COMMANDS[${i}]}\" exists! It's package name is ${COMMANDSPACKAGES[${i}]}"
+        #if command exist!
+        if [ ! -z `which ${COMMANDS[${i}]}` ]
+        then
+            echo "${COMMANDS[${i}]} already installed, and will be REMOVED!!!!"
+            sudo apt-get remove -y --purge ${COMMANDSPACKAGES[${i}]}
+        fi
+
+        sudo apt-get install -y ${COMMANDSPACKAGES[${i}]}
+        echo "${COMMANDS[${i}]} installed!"
+
+    done
 
 # set user profile to install npm packages globally without sudo on macOS and Linux
     npmpackages="${HOME}/.npm-packages"
