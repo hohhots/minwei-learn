@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# os update
-    sudo apt-get update
-    sudo apt-get -y upgrade
-
+# add nodejs 6 repository
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    
 # install software
     COMMANDS=( 'nodejs' 'node' 'npm' 'fab' )
     COMMANDSPACKAGES=( 'nodejs' 'nodejs-legacy' 'npm' 'fabric' )
@@ -51,6 +50,8 @@
     #globally for develop
     npmPackages=(
                 'gulp'
+                'bower'
+                'node-inspector'
     )
 
     comNum=${#npmPackages[@]}
