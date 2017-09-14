@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# add nodejs 6 repository
+# add nodejs 8 repository
+    sudo apt install -y curl
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     
 # install software
@@ -14,10 +15,10 @@
         if [ ! -z `which ${COMMANDS[${i}]}` ]
         then
             echo "${COMMANDS[${i}]} already installed, and will be REMOVED!!!!"
-            sudo apt-get remove -y --purge ${COMMANDSPACKAGES[${i}]}
+            sudo apt remove -y --purge ${COMMANDSPACKAGES[${i}]}
         fi
 
-        sudo apt-get install -y ${COMMANDSPACKAGES[${i}]}
+        sudo apt install -y ${COMMANDSPACKAGES[${i}]}
         echo "${COMMANDS[${i}]} installed!"
 
     done
