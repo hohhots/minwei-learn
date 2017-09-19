@@ -23,12 +23,12 @@ gulp.task('serve', [], () => {
         // Note: this uses an unsigned certificate which on first access
         //       will present a certificate warning in the browser.
         // https: true,
-        server: ['.tmp', 'src/client'],
+        server: ['./','src/client'],
         port: 3000
     });
 
     gulp.watch(['src/client/**/*.html'], reload);
-    //gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
+    gulp.watch(['/src/client/content/**/*.{scss,css}'], ['styles', reload]);
     // gulp.watch(['app/scripts/**/*.js'], ['lint', 'scripts', reload]);
     // gulp.watch(['app/images/**/*'], reload);
 });
