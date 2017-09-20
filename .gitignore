@@ -4,5 +4,11 @@
 # ignore python compiled files ( fabric config file )
 *.pyc
 
+# ignore minified files
+*.min.*
+
+# ignore directory
 node_modules
 bower_components
+.tmp
+dist

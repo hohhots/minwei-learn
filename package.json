@@ -45,5 +45,8 @@
   },
   "keywords": [
     "minwei"
-  ]
+  ],
+  "dependencies": {
+    "pump": "^1.0.2"
+  }
 }

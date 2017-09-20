@@ -24,5 +24,4 @@
       //'app.dashboard',
       //'app.layout'
   ]);
-
 })();
