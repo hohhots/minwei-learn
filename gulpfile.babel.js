@@ -140,7 +140,7 @@ gulp.task('styles', ['appCss'], (cb) => {
             gulp.src(paths.allmincss),
             $.newer('.tmp/content/styles/main.min.css'),
             logger({
-                before: 'Start concatenate and minify app js!',
+                before: 'Start concatenate and minify css!',
             }),
             $.if('*.css', $.cssnano()),
             $.concat('main.min.css'),
@@ -168,7 +168,7 @@ gulp.task('serve', ['scripts', 'styles'], () => {
     });
 
     gulp.watch(['src/client/**/*.html'], reload);
-    gulp.watch(['/src/client/content/**/*.{scss,css}'], ['styles', reload]);
-    gulp.watch(['/src/client/app/**/*.js'], ['scripts', reload]);
+    gulp.watch(['src/client/content/**/*.{scss,css}'], ['styles', reload]);
+    gulp.watch(['src/client/app/**/*.js'], ['scripts', reload]);
     //gulp.watch(['app/images/**/*'], reload);
 });
