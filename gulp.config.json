@@ -1,0 +1,30 @@
+{
+  "vendorjs": [
+    "bower_components/jquery/dist/jquery.min.js",
+    "bower_components/angular/angular.min.js",
+    "bower_components/angular-animate/angular-animate.min.js",
+    "bower_components/angular-cookies/angular-cookies.min.js",
+    "bower_components/angular-sanitize/angular-sanitize.min.js",
+    "bower_components/popper.js/dist/umd/popper.min.js",
+    "bower_components/bootstrap/dist/js/bootstrap.min.js"
+  ],
+  "appjs": [
+    "src/client/app/app.module.js"
+  ],
+  "allminjs": [
+    ".tmp/content/scripts/vendor.min.js",
+    ".tmp/content/scripts/app.min.js"
+  ],
+  "vendorcss": [
+    "./bower_components/bootstrap/dist/css/bootstrap.min.css",
+    "./bower_components/font-awesome/css/font-awesome.min.css",
+    "./bower_components/toastr/toastr.css"
+  ],
+  "appcss": [
+    "src/client/content/styles/main.css"
+  ],
+  "allmincss": [
+    ".tmp/content/styles/vendor.min.css",
+    ".tmp/content/styles/app.min.css"
+  ]
+}

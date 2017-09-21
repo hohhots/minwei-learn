@@ -2,6 +2,7 @@
 
 import path from 'path';
 import gulp from 'gulp';
+import logger from 'gulp-logger';
 import pump from 'pump';
 import del from 'del';
 import runSequence from 'run-sequence';
@@ -9,7 +10,9 @@ import browserSync from 'browser-sync';
 import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import { output as pagespeed } from 'psi';
+
 import pkg from './package.json';
+import paths from './gulp.config.json';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -24,19 +27,11 @@ gulp.task('help', $.taskListing);
 gulp.task('vendorJs', (cb) => {
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                'bower_components/jquery/dist/jquery.min.js',
-                'bower_components/angular/angular.min.js',
-                'bower_components/angular-animate/angular-animate.min.js',
-                'bower_components/angular-cookies/angular-cookies.min.js',
-                'bower_components/angular-sanitize/angular-sanitize.min.js',
-                'bower_components/popper.js/dist/umd/popper.min.js',
-                'bower_components/bootstrap/dist/js/bootstrap.min.js'
-                // Other scripts
-            ]),
+            gulp.src(paths.vendorjs),
+            $.newer('.tmp/content/scripts/vendor.min.js'),
+            logger({
+                before: 'Start concatenate and vendor js!',
+            }),
             $.concat('vendor.min.js'),
             $.uglify(),
             // Output files
@@ -50,16 +45,14 @@ gulp.task('vendorJs', (cb) => {
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 
-gulp.task('appJs', (cb) => {
+gulp.task('appJs', ['vendorJs'], (cb) => {
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                'src/client/app/app.module.js'
-                // Other scripts
-            ]),
+            gulp.src(paths.appjs),
+            $.newer('.tmp/content/scripts/app.min.js'),
+            logger({
+                before: 'Start concatenate and minify app js!',
+            }),
             $.sourcemaps.init(),
             $.babel(),
             $.sourcemaps.write(),
@@ -77,14 +70,11 @@ gulp.task('appJs', (cb) => {
 gulp.task('scripts', ['appJs'], (cb) => {
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                '.tmp/content/scripts/vendor.min.js',
-                '.tmp/content/scripts/app.min.js'
-                // Other scripts
-            ]),
+            gulp.src(paths.allminjs),
+            $.newer('.tmp/content/scripts/main.min.js'),
+            logger({
+                before: 'Start concatenate and minify js!',
+            }),
             $.concat('main.min.js'),
             $.uglify(),
             // Output files
@@ -98,16 +88,11 @@ gulp.task('scripts', ['appJs'], (cb) => {
 gulp.task('vendorCss', (cb) => {
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                // For best performance, don't add Sass partials to `gulp.src`
-                'bower_components/bootstrap/dist/css/bootstrap.min.css',
-                'bower_components/font-awesome/css/font-awesome.min.css',
-                'bower_components/toastr/toastr.min.css'
-                // Other styles
-            ]),
+            gulp.src(paths.vendorcss),
+            $.newer('.tmp/content/styles/vendor.min.css'),
+            logger({
+                before: 'Start concatenate and minify vendor css!',
+            }),
             $.if('*.css', $.cssnano()),
             $.concat('vendor.min.css'),
             gulp.dest('.tmp/content/styles')
@@ -117,7 +102,7 @@ gulp.task('vendorCss', (cb) => {
 });
 
 // Compile and automatically prefix stylesheets
-gulp.task('appCss', (cb) => {
+gulp.task('appCss', ['vendorCss'], (cb) => {
     const AUTOPREFIXER_BROWSERS = [
         'ie >= 10',
         'ie_mob >= 10',
@@ -132,14 +117,11 @@ gulp.task('appCss', (cb) => {
 
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                // For best performance, don't add Sass partials to `gulp.src`
-                'src/client/content/styles/main.css'
-                // Other styles
-            ]),
+            gulp.src(paths.appcss),
+            $.newer('.tmp/content/styles/app.min.css'),
+            logger({
+                before: 'Start concatenate and minify app css!',
+            }),
             $.sourcemaps.init(),
             $.sass({ precision: 10 }).on('error', $.sass.logError),
             $.autoprefixer(AUTOPREFIXER_BROWSERS),
@@ -155,14 +137,11 @@ gulp.task('appCss', (cb) => {
 gulp.task('styles', ['appCss'], (cb) => {
     pump(
         [
-            gulp.src([
-                // Note: Since we are not using useref in the scripts build pipeline,
-                //       you need to explicitly list your scripts here in the right order
-                //       to be correctly concatenated
-                '.tmp/content/styles/vendor.min.css',
-                '.tmp/content/styles/app.min.css'
-                // Other scripts
-            ]),
+            gulp.src(paths.allmincss),
+            $.newer('.tmp/content/styles/main.min.css'),
+            logger({
+                before: 'Start concatenate and minify app js!',
+            }),
             $.if('*.css', $.cssnano()),
             $.concat('main.min.css'),
             // Output files
@@ -173,10 +152,7 @@ gulp.task('styles', ['appCss'], (cb) => {
     );
 });
 
-gulp.task('serve', ['vendorJs', 'vendorCss'], () => {
-    gulp.start('scripts');
-    gulp.start('styles');
-
+gulp.task('serve', ['scripts', 'styles'], () => {
     browserSync({
         notify: false,
         // Customize the Browsersync console logging prefix
