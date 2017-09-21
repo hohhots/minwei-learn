@@ -7,6 +7,9 @@
 # ignore minified files
 *.min.*
 
+# ignore package-lock.json
+package-lock.json
+
 # ignore directory
 node_modules
 bower_components

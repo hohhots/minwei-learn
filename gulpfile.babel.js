@@ -67,7 +67,7 @@ gulp.task('appJs', (cb) => {
             $.uglify(),
             // Output files
             $.size({ title: 'scripts' }),
-            $.sourcemaps.write('./'),
+            //$.sourcemaps.write('./'),
             gulp.dest('.tmp/content/scripts')
         ],
         cb
@@ -194,5 +194,5 @@ gulp.task('serve', ['vendorJs', 'vendorCss'], () => {
     gulp.watch(['src/client/**/*.html'], reload);
     gulp.watch(['/src/client/content/**/*.{scss,css}'], ['styles', reload]);
     gulp.watch(['/src/client/app/**/*.js'], ['scripts', reload]);
-    // gulp.watch(['app/images/**/*'], reload);
+    //gulp.watch(['app/images/**/*'], reload);
 });
