@@ -88,7 +88,6 @@ gulp.task('vendorCss', (cb) => {
             logger({
                 before: 'Start concatenate and minify vendor css!',
             }),
-            $.if('*.css', $.cssnano()),
             $.concat('vendor.min.css'),
             gulp.dest('.tmp/content')
         ],
@@ -117,12 +116,15 @@ gulp.task('appCss', ['vendorCss'], (cb) => {
             logger({
                 before: 'Start concatenate and minify app css!',
             }),
-            $.sourcemaps.init(),
-            $.sass({ precision: 10 }).on('error', $.sass.logError),
             $.autoprefixer(AUTOPREFIXER_BROWSERS),
-            $.if('*.css', $.cssnano()),
+            $.sourcemaps.init(),
+            $.sourcemaps.write(),
+            gulp.dest('.tmp/content'),
+            $.cssnano(),
+            // Output files
             $.size({ title: 'styles' }),
             $.concat('app.min.css'),
+            $.sourcemaps.write('./'),
             gulp.dest('.tmp/content')
         ],
         cb
@@ -137,10 +139,10 @@ gulp.task('styles', ['appCss'], (cb) => {
             logger({
                 before: 'Start concatenate and minify css!',
             }),
-            $.if('*.css', $.cssnano()),
             $.concat('main.min.css'),
             // Output files
             gulp.dest('.tmp/content'),
+            $.if('*.css', $.cssnano()),
             gulp.dest('dist/content')
         ],
         cb
