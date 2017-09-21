@@ -1,5 +1,4 @@
 {
-  // javascripts
   "vendorjs": [
     "bower_components/jquery/dist/jquery.min.js",
     "bower_components/angular/angular.min.js",
@@ -13,10 +12,9 @@
     "src/client/app/app.module.js"
   ],
   "allminjs": [
-    ".tmp/content/scripts/vendor.min.js",
-    ".tmp/content/scripts/app.min.js"
+    ".tmp/content/vendor.min.js",
+    ".tmp/content/app.min.js"
   ],
-  // css styles
   "vendorcss": [
     "./bower_components/bootstrap/dist/css/bootstrap.min.css",
     "./bower_components/font-awesome/css/font-awesome.min.css",
@@ -26,7 +24,7 @@
     "src/client/content/styles/main.css"
   ],
   "allmincss": [
-    ".tmp/content/styles/vendor.min.css",
-    ".tmp/content/styles/app.min.css"
+    ".tmp/content/vendor.min.css",
+    ".tmp/content/app.min.css"
   ]
 }

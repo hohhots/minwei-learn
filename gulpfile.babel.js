@@ -28,14 +28,14 @@ gulp.task('vendorJs', (cb) => {
     pump(
         [
             gulp.src(paths.vendorjs),
-            $.newer('.tmp/content/scripts/vendor.min.js'),
+            $.newer('.tmp/content/vendor.min.js'),
             logger({
                 before: 'Start concatenate and vendor js!',
             }),
             $.concat('vendor.min.js'),
             $.uglify(),
             // Output files
-            gulp.dest('.tmp/content/scripts')
+            gulp.dest('.tmp/content')
         ],
         cb
     );
@@ -49,20 +49,20 @@ gulp.task('appJs', ['vendorJs'], (cb) => {
     pump(
         [
             gulp.src(paths.appjs),
-            $.newer('.tmp/content/scripts/app.min.js'),
+            $.newer('.tmp/content/app.min.js'),
             logger({
                 before: 'Start concatenate and minify app js!',
             }),
             $.sourcemaps.init(),
             $.babel(),
             $.sourcemaps.write(),
-            gulp.dest('.tmp/content/scripts'),
+            gulp.dest('.tmp/content'),
             $.concat('app.min.js'),
             $.uglify(),
             // Output files
             $.size({ title: 'scripts' }),
             $.sourcemaps.write('./'),
-            gulp.dest('.tmp/content/scripts')
+            gulp.dest('.tmp/content')
         ],
         cb
     );
@@ -72,14 +72,15 @@ gulp.task('scripts', ['appJs'], (cb) => {
     pump(
         [
             gulp.src(paths.allminjs),
-            $.newer('.tmp/content/scripts/main.min.js'),
+            $.newer('.tmp/content/main.min.js'),
             logger({
                 before: 'Start concatenate and minify js!',
             }),
             $.concat('main.min.js'),
             // Output files
-            gulp.dest('.tmp/content/scripts'),
-            gulp.dest('dist/content/scripts')
+            gulp.dest('.tmp/content'),
+            $.uglify(),
+            gulp.dest('dist/content')
         ],
         cb
     );
@@ -89,13 +90,13 @@ gulp.task('vendorCss', (cb) => {
     pump(
         [
             gulp.src(paths.vendorcss),
-            $.newer('.tmp/content/styles/vendor.min.css'),
+            $.newer('.tmp/content/vendor.min.css'),
             logger({
                 before: 'Start concatenate and minify vendor css!',
             }),
             $.if('*.css', $.cssnano()),
             $.concat('vendor.min.css'),
-            gulp.dest('.tmp/content/styles')
+            gulp.dest('.tmp/content')
         ],
         cb
     );
@@ -118,7 +119,7 @@ gulp.task('appCss', ['vendorCss'], (cb) => {
     pump(
         [
             gulp.src(paths.appcss),
-            $.newer('.tmp/content/styles/app.min.css'),
+            $.newer('.tmp/content/app.min.css'),
             logger({
                 before: 'Start concatenate and minify app css!',
             }),
@@ -128,7 +129,7 @@ gulp.task('appCss', ['vendorCss'], (cb) => {
             $.if('*.css', $.cssnano()),
             $.size({ title: 'styles' }),
             $.concat('app.min.css'),
-            gulp.dest('.tmp/content/styles')
+            gulp.dest('.tmp/content')
         ],
         cb
     );
@@ -138,15 +139,15 @@ gulp.task('styles', ['appCss'], (cb) => {
     pump(
         [
             gulp.src(paths.allmincss),
-            $.newer('.tmp/content/styles/main.min.css'),
+            $.newer('.tmp/content/main.min.css'),
             logger({
                 before: 'Start concatenate and minify css!',
             }),
             $.if('*.css', $.cssnano()),
             $.concat('main.min.css'),
             // Output files
-            gulp.dest('.tmp/content/styles'),
-            gulp.dest('dist/content/styles')
+            gulp.dest('.tmp/content'),
+            gulp.dest('dist/content')
         ],
         cb
     );
