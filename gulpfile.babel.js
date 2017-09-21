@@ -17,12 +17,6 @@ import paths from './gulp.config.json';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-/**
- * List the available gulp tasks
- */
-gulp.task('help', $.taskListing);
-
-
 // Concatenate all vendors minified js files
 gulp.task('vendorJs', (cb) => {
     pump(
