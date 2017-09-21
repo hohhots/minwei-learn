@@ -56,11 +56,12 @@ gulp.task('appJs', ['vendorJs'], (cb) => {
             $.sourcemaps.init(),
             $.babel(),
             $.sourcemaps.write(),
+            gulp.dest('.tmp/content/scripts'),
             $.concat('app.min.js'),
             $.uglify(),
             // Output files
             $.size({ title: 'scripts' }),
-            //$.sourcemaps.write('./'),
+            $.sourcemaps.write('./'),
             gulp.dest('.tmp/content/scripts')
         ],
         cb
@@ -76,7 +77,6 @@ gulp.task('scripts', ['appJs'], (cb) => {
                 before: 'Start concatenate and minify js!',
             }),
             $.concat('main.min.js'),
-            $.uglify(),
             // Output files
             gulp.dest('.tmp/content/scripts'),
             gulp.dest('dist/content/scripts')
