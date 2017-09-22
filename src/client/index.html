@@ -2,71 +2,120 @@
 <html lang="en" data-ng-app="app" ng-strict-di>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{description}}">
-    <meta name="keywords" content="{{keywords}}">
-    <meta name="author" content="{{author}}">
-    <title data-ng-bind="title"></title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="{{description}}">
+  <meta name="keywords" content="{{keywords}}">
+  <meta name="author" content="{{author}}">
+  <title data-ng-bind="title"></title>
 
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="manifest.json">
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="{{title}}">
-    <link rel="icon" sizes="192x192" href="content/images/touch/chrome-touch-icon-192x192.png">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="{{title}}">
+  <link rel="icon" sizes="192x192" href="content/images/touch/chrome-touch-icon-192x192.png">
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="{{title}}">
-    <link rel="apple-touch-icon" href="content/images/touch/apple-touch-icon.png">
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="{{title}}">
+  <link rel="apple-touch-icon" href="content/images/touch/apple-touch-icon.png">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="content/images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="content/images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
 
-    <!-- Color the status bar on mobile devices -->
-    <meta name="theme-color" content="#2F3BA2">
+  <!-- Color the status bar on mobile devices -->
+  <meta name="theme-color" content="#2F3BA2">
 
-    <style>
-        /* This helps the ng-show/ng-hide animations start at the right place. */
-        /* Since Angular has this but needs to load, this gives us the class early. */
+  <style>
+    /* This helps the ng-show/ng-hide animations start at the right place. */
+    /* Since Angular has this but needs to load, this gives us the class early. */
 
-        .ng-hide {
-            display: none!important;
-        }
-    </style>
+    .ng-hide {
+      display: none!important;
+    }
+  </style>
 
-    <link rel="stylesheet" href="content/main.min.css">
+  <link rel="stylesheet" href="content/main.min.css">
 </head>
 
 <body>
-    <noscript>
-        <div class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 15px;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="background-color:#2a6592">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true"  style="color:red"></i> javascript</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            为了正确使用本网站，请开启浏览器的JavaScript。
-                            <br />&nbsp;<br />
-                            To log in and use all the features of this site, please enable JavaScript in your browser.
-                        </p>
-                    </div>
-                </div>
-            </div>
+  <!-- for no javascript environment -->
+  <noscript>
+    <div class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; background-color:#666;padding-right: 15px;text-shadow:0 0.05rem 0.1rem rgba(0,0,0,.5)">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color:#2a6592">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myLargeModalLabel"><i class="fa fa-exclamation-triangle fa-lg" aria-hidden="true" style="color:red"></i> javascript</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              为了正确使用本网站，请开启浏览器的JavaScript。
+              <br />&nbsp;<br /> To log in and use all the features of this site, please enable JavaScript in your browser.
+            </p>
+          </div>
         </div>
-    </noscript>
+      </div>
+    </div>
+  </noscript>
 
-    <script src="content/main.min.js"></script>
+  <div>
+    <div data-ng-include="'app/layout/shell.html'"></div>
+    <div id="splash-page" data-ng-show="false">
+      <div class="page-splash">
+        <div class="page-splash-message">
+          随心蒙古语
+        </div>
+        <div class="progress progress-striped active page-progress-bar">
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- navigator bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">随心蒙古语</a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#topnavbar" aria-controls="topnavbar"
+        aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse" id="topnavbar">
+        <div class="navbar-nav mr-auto"></div>
+        <ul class="navbar-nav my-2 my-md-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown07">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <script src="content/main.min.js"></script>
 </body>
 
 </html>

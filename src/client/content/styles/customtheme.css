@@ -1,0 +1,10 @@
+.progress {
+  height: 7px;
+  line-height: 7px;
+  margin: 5px 0 !important;
+  border: 0;
+}
+
+  .progress .bar {
+      font-size: 6px;
+  }
