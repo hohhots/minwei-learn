@@ -3,6 +3,7 @@
 import path from 'path';
 import gulp from 'gulp';
 import logger from 'gulp-logger';
+import replace from 'gulp-replace';
 import pump from 'pump';
 import del from 'del';
 import runSequence from 'run-sequence';
@@ -80,6 +81,21 @@ gulp.task('scripts', ['appJs'], (cb) => {
     );
 });
 
+gulp.task('fonts', (cb) => {
+    pump(
+        [
+            gulp.src(paths.fonts),
+            $.newer('.tmp/content/fonts'),
+            logger({
+                before: 'Start move fonts!',
+            }),
+            gulp.dest('.tmp/content/fonts'),
+            gulp.dest('dist/content/fonts'),
+        ],
+        cb
+    );
+});
+
 gulp.task('vendorCss', (cb) => {
     pump(
         [
@@ -88,6 +104,7 @@ gulp.task('vendorCss', (cb) => {
             logger({
                 before: 'Start concatenate and minify vendor css!',
             }),
+            $.if('font-awesome.min.css', replace('../', '')),
             $.concat('vendor.min.css'),
             gulp.dest('.tmp/content')
         ],
@@ -131,7 +148,7 @@ gulp.task('appCss', ['vendorCss'], (cb) => {
     );
 });
 
-gulp.task('styles', ['appCss'], (cb) => {
+gulp.task('styles', ['appCss', 'fonts'], (cb) => {
     pump(
         [
             gulp.src(paths.allmincss),
